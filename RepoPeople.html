@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+      body {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        padding-left: 50px;
+        padding-right: 50px;
+      }
+      .btn {
+        background-color: white;
+        margin-top: 20px;
+        color: black;
+        border: 2px solid #e7e7e7;
+        padding: 10px 15px;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 15px;
+      }
+      .btn:hover {
+        background-color: #e7e7e7;
+      }
+      .main {
+        border-width: 10px;
+        border-color: #f4f4f4;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      p {
+        line-height: 10px;
+        font-weight: bold;
+        font: 700;
+        text-align: left;
+      }
+      h1 {
+        margin-top: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 50px;
+      }
+      img {
+        margin-top: 10px;
+        margin-right: 50px;
+        margin-left: 20px;
+      }
+    </style>
+    <script>
+      function showProfiles() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.github.com/users");
+        xhr.onload = function () {
+          var user = JSON.parse(xhr.responseText);
+          var output = "";
+          for (var i = 0; i < 20; i++) {
+            output +=
+              '<div class="main"><div class="image"><img height="100" weight="200" src="' +
+              user[i].avatar_url +
+              '"></div>';
+            output += '<div class = "text">';
+            output += "<p>ID: " + user[i].id + "</p>";
+            output += "<p>Login: " + user[i].login + "</p>";
+            output += "<p>URL: " + user[i].html_url + "</p>";
+            output +=
+              "<p>Subscription: " +
+              user[i].subscriptions_url +
+              "</p></div></div>";
+          }
+          document.getElementById("data").innerHTML = output;
+        };
+        xhr.send();
+      }
+    </script>
+    <title>Repo Peoples</title>
+  </head>
+  <body>
+    <button type="button" class="btn" onclick="showProfiles()">
+      Load GitHub User
+    </button>
+    <h1 id="h1">GitHub Users</h1>
+    <div id="data"></div>
+  </body>
+</html>
